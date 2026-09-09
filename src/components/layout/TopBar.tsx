@@ -15,7 +15,7 @@ import { resumeProfile } from "@/lib/mock-data";
 
 interface TopBarProps {
   title: string;
-  subtitle?: string;
+  subtitle?: string | undefined;
 }
 
 export function TopBar({ title, subtitle }: TopBarProps) {
