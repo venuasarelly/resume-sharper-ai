@@ -1,15 +1,23 @@
 import { configureStore } from "@reduxjs/toolkit";
+
 import applicationsReducer from "./applicationsSlice";
-import settingsReducer from "./settingsSlice";
+import jobsReducer from "./jobsSlice";
 import resumeReducer from "./resumeSlice";
+import settingsReducer from "./settingsSlice";
 
-export const store = configureStore({
-  reducer: {
-    applications: applicationsReducer,
-    settings: settingsReducer,
-    resume: resumeReducer,
-  },
-});
+export const makeStore = () =>
+  configureStore({
+    reducer: {
+      applications: applicationsReducer,
+      jobs: jobsReducer,
+      resume: resumeReducer,
+      settings: settingsReducer,
+    },
+  });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+/** Shared store instance (used outside React, e.g. tests or utilities). */
+export const store = makeStore();
+
+export type AppStore = ReturnType<typeof makeStore>;
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];

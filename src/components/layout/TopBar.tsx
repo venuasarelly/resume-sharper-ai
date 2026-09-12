@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { resumeProfile } from "@/lib/mock-data";
+import { useAppSelector } from "@/store/hooks";
 
 interface TopBarProps {
   title: string;
@@ -19,6 +19,18 @@ interface TopBarProps {
 }
 
 export function TopBar({ title, subtitle }: TopBarProps) {
+  const profile = useAppSelector((s) => s.resume.profile);
+  const name = profile?.fullName ?? "Your profile";
+  const email = profile?.email ?? "No resume uploaded";
+  const initials =
+    name
+      .split(" ")
+      .map((part) => part[0])
+      .filter(Boolean)
+      .slice(0, 2)
+      .join("")
+      .toUpperCase() || "AI";
+
   return (
     <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-border/70 bg-background/85 px-4 backdrop-blur md:px-6">
       <SidebarTrigger />
@@ -37,17 +49,17 @@ export function TopBar({ title, subtitle }: TopBarProps) {
           <button className="flex items-center gap-2 rounded-full border border-border/70 py-1 pl-1 pr-2 transition-colors hover:bg-accent">
             <Avatar className="size-7">
               <AvatarFallback className="bg-gradient-primary text-xs text-primary-foreground">
-                AM
+                {initials}
               </AvatarFallback>
             </Avatar>
-            <span className="hidden text-sm font-medium sm:inline">{resumeProfile.fullName}</span>
+            <span className="hidden text-sm font-medium sm:inline">{name}</span>
             <ChevronDown className="size-3.5 text-muted-foreground" />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56">
           <DropdownMenuLabel className="font-normal">
-            <p className="text-sm font-medium">{resumeProfile.fullName}</p>
-            <p className="text-xs text-muted-foreground">{resumeProfile.email}</p>
+            <p className="text-sm font-medium">{name}</p>
+            <p className="text-xs text-muted-foreground">{email}</p>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Profile</DropdownMenuItem>
