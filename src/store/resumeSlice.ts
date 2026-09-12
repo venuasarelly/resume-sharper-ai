@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 import type { ResumeProfileRecord } from "@/lib/resume.functions";
 
-export type ResumeStage = "idle" | "uploading" | "parsing" | "done" | "error";
+export type ResumeStage = "idle" | "uploading" | "parsing" | "success" | "error";
 
 interface ResumeState {
   stage: ResumeStage;
@@ -49,7 +49,7 @@ const resumeSlice = createSlice({
       state.stepIndex = action.payload;
     },
     uploadSucceeded(state, action: PayloadAction<ResumeProfileRecord>) {
-      state.stage = "done";
+      state.stage = "success";
       state.progress = 100;
       state.error = null;
       state.pendingName = null;
@@ -67,7 +67,7 @@ const resumeSlice = createSlice({
     },
     selectProfile(state, action: PayloadAction<ResumeProfileRecord>) {
       state.profile = action.payload;
-      state.stage = "done";
+      state.stage = "success";
       state.progress = 100;
       state.error = null;
     },
@@ -75,7 +75,7 @@ const resumeSlice = createSlice({
       state.allProfiles = action.payload;
       if (!state.profile && action.payload[0]) {
         state.profile = action.payload[0];
-        state.stage = "done";
+        state.stage = "success";
         state.progress = 100;
       }
     },
