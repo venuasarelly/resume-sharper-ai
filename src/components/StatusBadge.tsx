@@ -1,23 +1,19 @@
-import { statusLabels, type ApplicationStatus } from "@/lib/mock-data";
-import { cn } from "@/lib/utils";
+import type { ApplicationStatus } from "../store/applicationsSlice";
 
-const tones: Record<ApplicationStatus, string> = {
-  submitted: "bg-primary-soft text-primary",
-  in_review: "bg-warning-soft text-warning",
-  interview: "bg-success-soft text-success",
-  rejected: "bg-destructive/10 text-destructive",
-  draft: "bg-muted text-muted-foreground",
+const config: Record<ApplicationStatus, { label: string; className: string }> = {
+  applied: { label: "Applied", className: "bg-accent text-accent-foreground" },
+  interviewing: { label: "Interviewing", className: "bg-primary text-primary-foreground" },
+  offer: { label: "Offer", className: "bg-chart-2 text-primary-foreground" },
+  rejected: { label: "Rejected", className: "bg-destructive text-destructive-foreground" },
 };
 
-export function StatusBadge({ status }: { status: ApplicationStatus }) {
+export default function StatusBadge({ status }: { status: ApplicationStatus }) {
+  const { label, className } = config[status];
   return (
     <span
-      className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium",
-        tones[status],
-      )}
+      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${className}`}
     >
-      {statusLabels[status]}
+      {label}
     </span>
   );
 }

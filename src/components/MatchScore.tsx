@@ -1,27 +1,24 @@
-import { cn } from "@/lib/utils";
-
-interface MatchScoreProps {
+export default function MatchScore({
+  score,
+  size = 44,
+}: {
   score: number;
-  className?: string;
-}
-
-export function MatchScore({ score, className }: MatchScoreProps) {
-  const tone =
-    score >= 85
-      ? "bg-success-soft text-success"
-      : score >= 70
-        ? "bg-primary-soft text-primary"
-        : "bg-warning-soft text-warning";
-
+  size?: number;
+}) {
+  const clamped = Math.max(0, Math.min(100, Math.round(score)));
   return (
-    <span
-      className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold",
-        tone,
-        className,
-      )}
+    <div
+      role="img"
+      aria-label={`Match score ${clamped} out of 100`}
+      className="relative inline-flex shrink-0 items-center justify-center rounded-full"
+      style={{
+        width: size,
+        height: size,
+        background: `conic-gradient(var(--color-primary) ${clamped * 3.6}deg, var(--color-muted) 0deg)`,
+      }}
     >
-      {score}% match
-    </span>
+      <div className="absolute inset-[3px] rounded-full bg-card" />
+      <span className="relative text-xs font-semibold text-foreground">{clamped}</span>
+    </div>
   );
 }

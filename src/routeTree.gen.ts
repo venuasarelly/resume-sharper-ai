@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApplicationsRouteImport } from './routes/applications'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as JobAnalysisRouteImport } from './routes/job-analysis'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as SettingsRouteImport } from './routes/settings'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const ApplicationsRoute = ApplicationsRouteImport.update({
   id: '/applications',
   path: '/applications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JobAnalysisRoute = JobAnalysisRouteImport.update({
@@ -44,6 +50,7 @@ const SettingsRoute = SettingsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/applications': typeof ApplicationsRoute
+  '/auth': typeof AuthRoute
   '/job-analysis': typeof JobAnalysisRoute
   '/resume': typeof ResumeRoute
   '/settings': typeof SettingsRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/applications': typeof ApplicationsRoute
+  '/auth': typeof AuthRoute
   '/job-analysis': typeof JobAnalysisRoute
   '/resume': typeof ResumeRoute
   '/settings': typeof SettingsRoute
@@ -59,19 +67,23 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/applications': typeof ApplicationsRoute
+  '/auth': typeof AuthRoute
   '/job-analysis': typeof JobAnalysisRoute
   '/resume': typeof ResumeRoute
   '/settings': typeof SettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/applications' | '/job-analysis' | '/resume' | '/settings'
+  fullPaths:
+    '/' | '/applications' | '/auth' | '/job-analysis' | '/resume' | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/applications' | '/job-analysis' | '/resume' | '/settings'
+  to:
+    '/' | '/applications' | '/auth' | '/job-analysis' | '/resume' | '/settings'
   id:
     | '__root__'
     | '/'
     | '/applications'
+    | '/auth'
     | '/job-analysis'
     | '/resume'
     | '/settings'
@@ -80,6 +92,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApplicationsRoute: typeof ApplicationsRoute
+  AuthRoute: typeof AuthRoute
   JobAnalysisRoute: typeof JobAnalysisRoute
   ResumeRoute: typeof ResumeRoute
   SettingsRoute: typeof SettingsRoute
@@ -99,6 +112,13 @@ declare module '@tanstack/react-router' {
       path: '/applications'
       fullPath: '/applications'
       preLoaderRoute: typeof ApplicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/job-analysis': {
@@ -128,6 +148,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApplicationsRoute: ApplicationsRoute,
+  AuthRoute: AuthRoute,
   JobAnalysisRoute: JobAnalysisRoute,
   ResumeRoute: ResumeRoute,
   SettingsRoute: SettingsRoute,

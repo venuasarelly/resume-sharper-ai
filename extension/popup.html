@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ApplyAI field detection</title>
+    <style>
+      body {
+        width: 360px;
+        margin: 0;
+        padding: 14px;
+        font: 13px/1.45 system-ui, sans-serif;
+        color: #1c2333;
+        background: #f7f8fb;
+      }
+      h1 { font-size: 14px; margin: 0 0 10px; }
+      button {
+        width: 100%;
+        padding: 8px 10px;
+        border: 0;
+        border-radius: 8px;
+        background: #2f5bea;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .row {
+        background: #fff;
+        border: 1px solid #e3e7f0;
+        border-radius: 8px;
+        padding: 8px 10px;
+        margin-top: 8px;
+      }
+      .key { font-family: ui-monospace, monospace; font-size: 11px; color: #2f5bea; }
+      .label { font-weight: 600; }
+      .meta { color: #6b7280; font-size: 11px; }
+      .conf { float: right; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <h1>Workday field detection</h1>
+    <button id="scan">Detect fields</button>
+    <div id="out"></div>
+    <script src="popup.js"></script>
+  </body>
+</html>

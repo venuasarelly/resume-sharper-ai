@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1788940003763,
+      "tag": "0000_create_resume_profiles",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788940321365,
+      "tag": "0001_create_job_analyses",
+      "breakpoints": true
+    }
+  ]
+}
