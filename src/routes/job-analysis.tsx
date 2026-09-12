@@ -6,7 +6,7 @@ import { Check, Loader2, Sparkles, X } from "lucide-react";
 import { toast } from "sonner";
 
 import { AppLayout } from "@/components/layout/AppLayout";
-import { MatchScore } from "@/components/MatchScore";
+import MatchScore from "@/components/MatchScore";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

@@ -135,7 +135,7 @@ function AutofillTab() {
   const autofill = useSelector((state: RootState) => state.applications.autofill);
   const lastMatchScore = useSelector((state: RootState) => state.applications.lastMatchScore);
   const resumeFields = useSelector(selectAutofillFromResume);
-  const skills = useSelector((state: RootState) => state.resume.profile.skills);
+  const skills = useSelector((state: RootState) => state.resume.profile?.skills ?? []);
   const runMapFields = useServerFn(mapFieldsFn);
 
   const [progress, setProgress] = useState(0);
